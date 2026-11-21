@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>북돋음</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  html, body { margin: 0; height: 100%; background: #C9D9FB; }
+  iframe { display: block; width: 100%; height: 100%; border: 0; }
+  .wait { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; font: 18px/1.5 sans-serif; color: #262B63; }
+</style>
+</head>
+<body>
+<div class="wait" id="wait">북돋음을 여는 중이에요…</div>
+<iframe id="app" title="북돋음 상담 프로그램" allow="clipboard-write"></iframe>
+<script>
+  /* ▼ 여기에 앱스 스크립트 웹 앱 주소(…/exec)를 넣어 주세요 ▼ */
+  const APP_URL = "https://script.google.com/macros/s/AKfycbzRI-KUnnQuB7a8Nltsw7Rw79KPYcqbh3eG5D5TNypwPDBX21NZ8Pv9Yx1Oneo_i9V0/exec";
+
+  const tg = window.Telegram && window.Telegram.WebApp;
+  let src = APP_URL;
+  if (tg && tg.initData) {
+    tg.ready(); tg.expand();
+    try { tg.setHeaderColor("#C9D9FB"); tg.setBackgroundColor("#C9D9FB"); } catch (e) {}
+    /* 텔레그램이 보증한 사용자 정보를 프로그램에 넘김 (프로그램 서버가 봇 토큰으로 진짜인지 확인) */
+    src += (APP_URL.indexOf("?") < 0 ? "?" : "&") + "tg=" + encodeURIComponent(tg.initData);
+  }
+  const f = document.getElementById("app");
+  f.addEventListener("load", () => { document.getElementById("wait").style.display = "none"; });
+  f.src = src;
+</script>
+</body>
+</html>
