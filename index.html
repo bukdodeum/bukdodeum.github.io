@@ -25,6 +25,8 @@
     try { tg.setHeaderColor("#C9D9FB"); tg.setBackgroundColor("#C9D9FB"); } catch (e) {}
     /* 텔레그램이 보증한 사용자 정보를 프로그램에 넘김 (프로그램 서버가 봇 토큰으로 진짜인지 확인) */
     src += (APP_URL.indexOf("?") < 0 ? "?" : "&") + "tg=" + encodeURIComponent(tg.initData);
+    const req = new URLSearchParams(location.search).get("req");   /* 관리자 승인 요청 단추로 열었을 때 */
+    if (req && /^[a-f0-9]{48}$/.test(req)) src += "&req=" + req;
   }
   const f = document.getElementById("app");
   f.addEventListener("load", () => { document.getElementById("wait").style.display = "none"; });
